@@ -4,12 +4,13 @@ import redis
 
 app = Flask(__name__)
 
-r = redis.Redis(host='localhost', port=6379)
+r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
 @app.route('/')
 def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
-
+    r.set('foo', 'bar')
+    rett = r.get('foo')
+    return jsonify({"foo": ret})
 
 if __name__ == '__main__':
     app.run()
