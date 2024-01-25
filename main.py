@@ -1,15 +1,13 @@
 from flask import Flask, jsonify
-import os
 
 app = Flask(__name__)
 
-fp = open('data','r')
-datta = fp.read()
-fp.close()
+with open('data','r') as fp:
+    valu = fp.read()
 
 @app.route('/')
 def index():
-    return jsonify({"foo": datta})
+    return jsonify({"key": valu})
 
 if __name__ == '__main__':
     app.run()
